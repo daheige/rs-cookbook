@@ -2,5 +2,6 @@
 resolver = "2"
 members = [
     "rand-demo",
-    "vec-sort"
+    "vec-sort",
+    "clap-cmd"
 ]
