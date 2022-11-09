@@ -1,4 +1,6 @@
 # ansi_term 终端文本颜色设置
+- ansi_term 中有两种主要的数据结构：ANSIString 和 Style。Style 包含样式信息：颜色，是否粗体文本，或者是否闪烁，或者其它样式。
+- 还有 Colour 变量，代表简单的前景色样式。ANSIString 是与 Style 配对的字符串。
 - 打印彩色文本到终端实用
 ```rust
 println!(
