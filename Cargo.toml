@@ -4,5 +4,6 @@ members = [
     "rand-demo",
     "vec-sort",
     "clap-cmd",
-    "ansi-color-cmd"
+    "ansi-color-cmd",
+    "crossbean-chan"
 ]
