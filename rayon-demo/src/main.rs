@@ -6,12 +6,16 @@ fn main() {
 
     // rayon 为任何并行可迭代的数据类型提供 par_iter_mut 方法。
     // 这是一个类迭代器的链，可以对链内的数据并行计算
+    // par_iter_mut 迭代可变类型
     arr.par_iter_mut().for_each(|p| *p -= 1);
     println!("{:?}", arr);
 
     match_vec_member();
 
     find_any_member();
+
+    // map reduce
+    map_reduce();
 }
 
 // 并行测试集合中任意或所有的元素是否匹配给定断言
@@ -43,4 +47,33 @@ fn find_any_member() {
     assert_eq!(f2, Some(&9));
     println!("{:?}", f1);
     println!("{:?}", f2);
+}
+
+struct Person {
+    age: u32,
+}
+
+fn map_reduce() {
+    let v: Vec<Person> = vec![
+        Person { age: 23 },
+        Person { age: 19 },
+        Person { age: 42 },
+        Person { age: 19 },
+        Person { age: 19 },
+        Person { age: 18 },
+        Person { age: 17 },
+        Person { age: 30 },
+    ];
+    let num_over_30 = v.par_iter().filter(|&x| x.age > 30).count() as f32;
+    let sum_over_30 = v
+        .par_iter()
+        .map(|x| x.age)
+        .filter(|&x| x > 30)
+        .reduce(|| 0, |x, y| x + y);
+    let alt_over_30: u32 = v.par_iter().map(|x| x.age).filter(|&x| x > 30).sum();
+    let avg_over_30 = sum_over_30 as f32 / num_over_30;
+    let alt_avg_over_30 = alt_over_30 as f32 / num_over_30;
+    let m = (avg_over_30 - alt_avg_over_30).abs() < f32::EPSILON;
+    println!("{:?}", m);
+    println!("avg over 30: {:?}", avg_over_30);
 }
