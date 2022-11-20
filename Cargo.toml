@@ -7,5 +7,6 @@ members = [
     "ansi-color-cmd",
     "crossbean-chan",
     "lazy-static-assign",
-    "rayon-demo"
+    "rayon-demo",
+    "crypt-demo"
 ]
