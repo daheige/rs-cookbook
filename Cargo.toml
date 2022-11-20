@@ -6,5 +6,6 @@ members = [
     "clap-cmd",
     "ansi-color-cmd",
     "crossbean-chan",
-    "lazy-static-assign"
+    "lazy-static-assign",
+    "rayon-demo"
 ]
