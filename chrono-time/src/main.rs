@@ -29,4 +29,6 @@ fn main() {
         "and the common era began {} days ago",
         now.num_days_from_ce()
     );
+
+    println!("current time:{}", now.format("%Y-%m-%d %H:%M:%S"));
 }
