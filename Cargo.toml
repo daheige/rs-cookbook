@@ -8,5 +8,6 @@ members = [
     "crossbean-chan",
     "lazy-static-assign",
     "rayon-demo",
-    "crypt-demo"
+    "crypt-demo",
+    "time-demo"
 ]
