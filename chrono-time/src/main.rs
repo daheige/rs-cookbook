@@ -1,4 +1,4 @@
-use chrono::{Datelike, Local, Timelike};
+use chrono::{Datelike, Local, NaiveDateTime, Timelike};
 
 fn main() {
     let now = Local::now();
@@ -31,4 +31,7 @@ fn main() {
     );
 
     println!("current time:{}", now.format("%Y-%m-%d %H:%M:%S"));
+
+    let no_timezone = NaiveDateTime::parse_from_str("2015-09-05 23:56:04", "%Y-%m-%d %H:%M:%S");
+    println!("{}", no_timezone.unwrap());
 }
