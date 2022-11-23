@@ -2,6 +2,8 @@ use chrono::{Datelike, Local, NaiveDate, NaiveDateTime, NaiveTime, Timelike};
 
 fn main() {
     let now = Local::now();
+    println!("unix time: {}", now.timestamp());
+
     let (is_pm, hour) = now.hour12();
     println!(
         "the current local time is {:02}:{:02}:{:02} {}",
