@@ -9,6 +9,7 @@ members = [
     "lazy-static-assign",
     "rayon-demo",
     "crypt-demo",
-    "time-demo",
-    "chrono-time"
+    "time-tour/time-demo",
+    "time-tour/chrono-time",
+    "log-demo"
 ]
