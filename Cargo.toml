@@ -11,5 +11,6 @@ members = [
     "crypt-demo",
     "time-tour/time-demo",
     "time-tour/chrono-time",
-    "log-demo"
+    "log-demo",
+    "log4rs-demo"
 ]
