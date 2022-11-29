@@ -15,5 +15,6 @@ members = [
     "log4rs-demo",
     "semver-demo",
     "url-demo",
-    "data-encoding-demo"
+    "data-encoding-demo",
+    "csv-demo"
 ]
