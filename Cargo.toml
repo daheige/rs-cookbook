@@ -13,5 +13,7 @@ members = [
     "time-tour/chrono-time",
     "log-demo",
     "log4rs-demo",
-    "semver-demo"
+    "semver-demo",
+    "url-demo",
+    "data-encoding-demo"
 ]
