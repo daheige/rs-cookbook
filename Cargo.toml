@@ -17,5 +17,6 @@ members = [
     "url-demo",
     "data-encoding-demo",
     "csv-demo",
-    "file-demo"
+    "file-demo",
+    "cpu-demo"
 ]
