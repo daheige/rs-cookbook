@@ -16,5 +16,6 @@ members = [
     "semver-demo",
     "url-demo",
     "data-encoding-demo",
-    "csv-demo"
+    "csv-demo",
+    "file-demo"
 ]
