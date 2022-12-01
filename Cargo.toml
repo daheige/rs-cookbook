@@ -9,8 +9,8 @@ members = [
     "lazy-static-assign",
     "rayon-demo",
     "crypt-demo",
-    "time-tour/time-demo",
-    "time-tour/chrono-time",
+    "time-tutorial/time-demo",
+    "time-tutorial/chrono-time",
     "log-demo",
     "log4rs-demo",
     "semver-demo",
@@ -18,5 +18,6 @@ members = [
     "data-encoding-demo",
     "csv-demo",
     "file-demo",
-    "cpu-demo"
+    "cpu-demo",
+    "env-demo"
 ]
