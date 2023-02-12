@@ -34,6 +34,7 @@ fn build_url(base_url: &str, path: &str) -> Result<Url, ParseError> {
 
 #[test]
 fn url_parse() -> Result<(), ParseError> {
+    // 提取url各个部分
     let s = "https://github.com/daheige?i=1&b=2&c=rust";
     let parsed = Url::parse(s)?;
     println!("url path: {}", parsed.path());
