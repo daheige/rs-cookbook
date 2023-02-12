@@ -1,5 +1,6 @@
 use url::form_urlencoded::{byte_serialize, parse};
 use url::{Origin, ParseError, Position, Url};
+
 fn main() {
     /*
     使用 form_urlencoded::byte_serialize 将字符串编码为 application/x-www-form-urlencoded
@@ -18,6 +19,9 @@ fn main() {
     println!("decode str:{}", s);
 
     assert_eq!(s, url_str);
+
+    let user_url = build_url("https://github.com", "/daheige").unwrap();
+    println!("user_url:{}", user_url);
 }
 
 // 从基本 URL 创建新 URLs

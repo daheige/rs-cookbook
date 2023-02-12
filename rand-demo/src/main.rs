@@ -16,6 +16,10 @@ fn main() {
 
     println!("random u32: {}", rng.gen::<u32>());
 
+    // 生成i32随机数
+    let x: i32 = rng.gen_range(100..999);
+    println!("x:{}", x);
+
     // 生成区间的随机数[1,10)
     let i: i64 = rng.gen_range(1..10);
     println!("i:{}", i);
