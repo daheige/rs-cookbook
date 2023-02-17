@@ -19,5 +19,6 @@ members = [
     "csv-demo",
     "file-demo",
     "cpu-demo",
-    "env-demo"
+    "env-demo",
+    "mime-demo"
 ]
