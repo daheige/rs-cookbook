@@ -7,3 +7,7 @@ edition = "2021"
 
 [dependencies]
 mime = "0.3.16"
+
+#reqwest相关的crate
+reqwest = { version = "0.11.14",features =["json"]}
+tokio = { version = "1", features = ["full"] }
