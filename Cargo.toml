@@ -20,5 +20,6 @@ members = [
     "file-demo",
     "cpu-demo",
     "env-demo",
-    "mime-demo"
+    "mime-demo",
+    "client-request"
 ]
