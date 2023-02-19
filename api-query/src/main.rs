@@ -1,4 +1,9 @@
-use std::time::Duration;
+use std::{
+    fs::{self, File},
+    io::copy,
+    path::Path,
+    time::Duration,
+};
 
 use anyhow::Result;
 use reqwest::{self, ClientBuilder};
@@ -38,3 +43,37 @@ async fn main() -> Result<()> {
 
     Ok(())
 }
+
+// 通过reqwest 实现文件下载功能
+#[tokio::test]
+async fn test_download() -> Result<()> {
+    let tmp_dir = Path::new("../download");
+    fs::create_dir_all(tmp_dir)?;
+    println!("tmp_dir: {:?}", tmp_dir);
+    let target_url = "https://www.rust-lang.org/logos/rust-logo-512x512.png";
+    let resp = reqwest::get(target_url).await?;
+
+    // 指定下载后的文件名
+    let mut dest = {
+        let fname = resp
+            .url()
+            .path_segments()
+            .and_then(|segments| segments.last())
+            .and_then(|name| if name.is_empty() { None } else { Some(name) })
+            .unwrap();
+        println!("file to download :{}", fname);
+        let fname = tmp_dir.join(fname);
+        File::create(fname)?
+    };
+
+    let content = resp.text().await?;
+    // 将下载的文件内容复制到指定的目标文件
+    copy(&mut content.as_bytes(), &mut dest)?;
+    Ok(())
+}
+/*
+running 1 test
+tmp_dir: "../log"
+file to download :rust-logo-512x512.png
+test test_download ... ok
+ */

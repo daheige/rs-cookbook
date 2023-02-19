@@ -1,3 +1,6 @@
 /target
 log/*
 .idea
+logs/*
+download/*
+.DS_Store
