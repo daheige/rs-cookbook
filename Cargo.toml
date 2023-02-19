@@ -21,5 +21,6 @@ members = [
     "cpu-demo",
     "env-demo",
     "mime-demo",
-    "client-request"
+    "client-request",
+    "api-query"
 ]

@@ -1,0 +1,16 @@
+[package]
+name = "api-query"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+# "blocking" 表示使用reqwest block client功能
+reqwest = { version = "0.11.14",features =["json","blocking"]}
+# 用于Result<T,E>处理，当发生错误的时候就是终止继续运行，否则T就是正常的结果
+anyhow = "1.0.69"
+# 用于异步操作
+tokio = { version = "1", features = ["full"] }
+# serde序列化
+serde = { version = "1.0.152",features = ["derive"]}
