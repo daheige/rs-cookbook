@@ -7,7 +7,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Serialize, Deserialize, Debug)]
 struct User {
     login: String,
-    id: u32,
+    id: i64,
 }
 
 #[tokio::main]
