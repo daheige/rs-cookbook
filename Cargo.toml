@@ -22,5 +22,6 @@ members = [
     "env-demo",
     "mime-demo",
     "client-request",
-    "api-query"
+    "api-query",
+    "serde-demo"
 ]
