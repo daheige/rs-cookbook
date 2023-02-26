@@ -5,7 +5,7 @@ use rand::distributions::Alphanumeric;
 
 fn main() {
     println!("Hello, world!");
-    let mut rng = rand::thread_rng();
+    let mut rng = thread_rng();
     // 生成(0,1]的浮点数
     println!("random f64: {}", rng.gen::<f64>());
 
@@ -48,7 +48,7 @@ const CHARSET: &[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ\
 
 fn diy_rand_string(size: usize) -> String {
     // 通过对CHARSET随机产生一个char，一共生成size个char组成字符串string
-    let mut rng = rand::thread_rng();
+    let mut rng = thread_rng();
     let pwd: String = (0..size)
         .map(|_| {
             // 使用用户自定义的字节字符串，使用 gen_range 函数
