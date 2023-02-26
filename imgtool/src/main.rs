@@ -12,3 +12,13 @@ fn main() {
 
 // 执行图片旋转
 // ../target/debug/imgtool ~/Documents/img-test.jpg
+
+#[test]
+fn img_rotate90() {
+    let image_path = "./img-test.jpg";
+    let path = Path::new(image_path);
+    let img = image::open(path).unwrap();
+    let rotated = img.rotate90();
+    rotated.save(path).unwrap(); // 保存为原路径
+    println!("rotate90 success");
+}
