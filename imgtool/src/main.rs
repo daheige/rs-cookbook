@@ -9,3 +9,6 @@ fn main() {
     rotated.save(path).unwrap(); // 保存为原路径
     println!("rotate90 success");
 }
+
+// 执行图片旋转
+// ../target/debug/imgtool ~/Documents/img-test.jpg
