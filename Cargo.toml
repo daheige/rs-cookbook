@@ -23,5 +23,6 @@ members = [
     "mime-demo",
     "client-request",
     "api-query",
-    "serde-demo"
+    "serde-demo",
+    "imgtool"
 ]
