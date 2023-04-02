@@ -23,7 +23,7 @@ rustup update
 - kafka-rust/kafka-rust 相比上一个库，它算是纯Rust实现，文档还行，支持Kafka0.8.2及以后的版本，但是对于部分0.9版本的特性还不支持
 - anyhow用于error handler处理result
 - hyperium/tonic 纯Rust实现的gRPC客户端和服务器端，支持async/await异步调用，用于grpc微服务开发
-- tokio-rs/prost 用来代码生成tokio出品
+- tokio-rs/prost 用来代码生成，tokio出品
 - actix-web用于web api开发，基于Actor模型的异步网络库的router
 - axum 用于web api开发，比较好用的路由router库，基于tokio生态的
 - tide 基于async-std运行时的http router，用于http web/api开发
@@ -39,6 +39,7 @@ rustup update
 - napi 用于rust为nodejs写拓展的库
 - neon 用于Rust 为 node.js 写拓展的库
 - rustwasm 用于rust 开发wasm的库
+- wasm-bindgen 用于wasm开发
 - cloudflare/quiche 大名鼎鼎cloudflare提供的QUIC实现，据说在公司内部重度使用，有了大规模生产级别的验证，非常值得信任，同时该库还实现了HTTP/3
 - md5 用于rust md5加密算法
 - rand 用于生成随机数或字符串的rand库
