@@ -35,9 +35,10 @@ rustup update
 - async-std 跟标准库API很像的异步网络库，相对简单易用，但是貌似开发有些停滞，还有就是功能上不够完善。但是对于普通用户来说，这个库非常值得一试，它在功能和简单易用上取得了很好的平衡。
 - BurntSushi/rust-csv 高性能CSV读写库，支持Serde
 - alexcrichton/toml-rs TOML编码/解码，可以配合serde使用
--  tafia/quick-xml 高性能XML库，可以配合serde使用，文档较为详细
+- tafia/quick-xml 高性能XML库，可以配合serde使用，文档较为详细
 - napi 用于rust为nodejs写拓展的库
-- neon 用于Rust 为 node.js 写拓展的库
+- neon 用于rust 为 node.js 写拓展的库
+- pyo3 用于rust 为 python 写拓展的库
 - rustwasm 用于rust 开发wasm的库
 - wasm-bindgen 用于wasm开发
 - cloudflare/quiche 大名鼎鼎cloudflare提供的QUIC实现，据说在公司内部重度使用，有了大规模生产级别的验证，非常值得信任，同时该库还实现了HTTP/3
