@@ -26,6 +26,7 @@ rustup update
 - tokio-rs/prost 用来代码生成tokio出品
 - actix-web用于web api开发，基于Actor模型的异步网络库的router
 - axum 用于web api开发，比较好用的路由router库，基于tokio生态的
+- tide 基于async-std运行时的http router，用于http web/api开发
 - reqwest 用于http请求的高质量库
 - env_logger日志库，需要引入log库才可以使用
 - clap用于命令行操作的库
@@ -39,3 +40,22 @@ rustup update
 - neon 用于Rust 为 Node.js 写拓展的库
 - rustwasm 用于rust 开发wasm的库
 - cloudflare/quiche 大名鼎鼎cloudflare提供的QUIC实现，据说在公司内部重度使用，有了大规模生产级别的验证，非常值得信任，同时该库还实现了HTTP/3
+- md5 用于rust md5加密算法
+- mime 用于文件类型的库
+- rayon 用于并行计算的库
+- mongodb 用于mongodb操作的库
+- chrono 用于时间操作的库
+- base64 用于Rust中字符串的base64编码与解码
+- hmac-sha256 用于rust hmac 256处理
+- num_cpus 获取当前cpu个数
+- regex 用于正则表达操作的库
+- semver 用于版本比较的库
+- sha256 用于sha256算法的库
+- structopt 用于结构体配置读取的库
+- thiserror 用于包装error的库
+- url 用于url处理的库
+- uuid 用于生成uuid的库
+- validator 用于参数校验的库
+
+# 更多的crates
+https://crates.io 可以在这个网站上面进行搜索即可
