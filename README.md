@@ -36,17 +36,19 @@ rustup update
 - BurntSushi/rust-csv 高性能CSV读写库，支持Serde
 - alexcrichton/toml-rs TOML编码/解码，可以配合serde使用
 -  tafia/quick-xml 高性能XML库，可以配合serde使用，文档较为详细
-- napi-rs用于rust为nodejs写拓展的库
-- neon 用于Rust 为 Node.js 写拓展的库
+- napi 用于rust为nodejs写拓展的库
+- neon 用于Rust 为 node.js 写拓展的库
 - rustwasm 用于rust 开发wasm的库
 - cloudflare/quiche 大名鼎鼎cloudflare提供的QUIC实现，据说在公司内部重度使用，有了大规模生产级别的验证，非常值得信任，同时该库还实现了HTTP/3
 - md5 用于rust md5加密算法
+- rand 用于生成随机数或字符串的rand库
 - mime 用于文件类型的库
 - rayon 用于并行计算的库
 - mongodb 用于mongodb操作的库
 - chrono 用于时间操作的库
 - base64 用于Rust中字符串的base64编码与解码
 - hmac-sha256 用于rust hmac 256处理
+- rust-crypto 用于aes,bcrypt,blowfish,ecb,cbc,hmac,md5,sha1等加密/解密处理的库
 - num_cpus 获取当前cpu个数
 - regex 用于正则表达操作的库
 - semver 用于版本比较的库
@@ -56,6 +58,10 @@ rustup update
 - url 用于url处理的库
 - uuid 用于生成uuid的库
 - validator 用于参数校验的库
+- lru 用于lru cache本地缓存的库
+- dotenv 用于读取.env文件的库
+- html-escape 处理html标签转义
+- jsonwebtoken 用于web jwt认证的库
 
 # 更多的crates
 https://crates.io 可以在这个网站上面进行搜索即可
