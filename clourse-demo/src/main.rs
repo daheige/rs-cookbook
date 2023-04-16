@@ -9,6 +9,7 @@ fn main() {
     };
 
     c("rust");
+    println!("current a = {},b = {}", a, b);
 
     // 通过move关键字将当前作用域的变量所有权转移到闭包中
     let s = String::from("hello world,rust");
