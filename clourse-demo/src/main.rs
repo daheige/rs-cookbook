@@ -31,4 +31,86 @@ fn main() {
     // let c3 = move || {
     //     c2 = "abc".to_string(); // cannot find value `c2` in this scope
     // };
+
+    greet();
+
+    fn_mut_call();
+}
+
+fn greet() {
+    let name = "hello".to_string();
+    // 下面的闭包接收参数后，返回了greeting,name
+    // c通过move关键字将name的所有权已经移动到了闭包内部，所有其他地方就不能再次调用闭包了
+    // c在这里属于FnOnce的闭包，只能调用一次
+    let c = move |greeting: String| (greeting, name);
+    let res = c("abc".to_string()); //  - name value moved here
+    println!("res:{:?}", res);
+
+    // 下面再次使用c就无法使用，编译时不通过
+    // let res = c("abc".to_string()); //   ^ value used here after move
+    // println!("res:{:?}", res);
+
+    // 下面的闭包c就不是FnOnce
+    let user = "abc";
+    let c = move |greeting: String| {
+        println!("greeting: {} name:{}", greeting, user);
+    };
+
+    c("go".to_string());
+    c("java".to_string());
+}
+
+fn fn_mut_call() {
+    // 声明的时候是需要采用mut定义变量为可变类型
+    let mut name = String::from("hello");
+    let mut name1 = String::from("wolrd");
+    // 下面的闭包捕获 &mut name,&mut name1
+    let mut c1 = move || {
+        name.push_str(",rust");
+        println!("name:{}", name);
+    };
+    let mut c2 = move || {
+        name1.push_str(",rust");
+        println!("name1:{}", name1);
+    };
+    // FnMut类型的闭包可以多次调用
+    call_mut(&mut c1);
+    call_mut(&mut c1);
+    call_mut(&mut c1);
+
+    call_mut(&mut c2);
+    call_mut(&mut c2);
+
+    // 下面是FnOnce调用
+    call_once(c1);
+    call_once(c2);
+
+    let mut n = "abc".to_string();
+    let c3 = || {
+        n.push_str(",rust");
+        println!("name1:{}", n);
+    };
+    call_twice(c3);
+    println!("n:{}", n);
+}
+
+// 参数c是一个&mut impl FnMut trait
+// 表明参数是一个可变类型的闭包
+fn call_mut(c: &mut impl FnMut()) {
+    c();
+}
+
+// c是一个实现了FnOnce trait特征的闭包类型
+fn call_once(c: impl FnOnce()) {
+    c();
+}
+
+// c是一个FnMut特征
+fn call_twice<F>(mut c: F)
+where
+    F: FnMut(),
+{
+    c();
+    c();
+    c();
 }
