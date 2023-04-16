@@ -24,5 +24,6 @@ members = [
     "client-request",
     "api-query",
     "serde-demo",
-    "imgtool"
+    "imgtool",
+    "clourse-demo"
 ]
