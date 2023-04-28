@@ -27,4 +27,5 @@ members = [
     "imgtool",
     "clourse-demo",
     "impl-trait",
+    "trait-object",
 ]
