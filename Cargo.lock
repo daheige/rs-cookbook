@@ -858,6 +858,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "impl-trait"
+version = "0.1.0"
+
+[[package]]
 name = "indexmap"
 version = "1.9.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"

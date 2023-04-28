@@ -25,5 +25,6 @@ members = [
     "api-query",
     "serde-demo",
     "imgtool",
-    "clourse-demo"
+    "clourse-demo",
+    "impl-trait",
 ]
