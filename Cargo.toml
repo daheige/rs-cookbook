@@ -28,4 +28,5 @@ members = [
     "clourse-demo",
     "impl-trait",
     "trait-object",
+    "guess_game"
 ]
