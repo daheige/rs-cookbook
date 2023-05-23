@@ -1,3 +1,5 @@
+# guess number
+```rust
 use colored::*; // 用于颜色输出
 use rand::Rng;
 use std::cmp::Ordering;
@@ -31,3 +33,9 @@ fn main() {
         }
     }
 }
+
+```
+
+# 运行效果
+cargo run
+![](guess-number.jpg)
