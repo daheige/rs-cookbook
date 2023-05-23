@@ -1,13 +1,7 @@
-use std::{
-    fs::{self, File},
-    io::copy,
-    path::Path,
-    time::Duration,
-};
-
 use anyhow::Result;
 use reqwest::{self, ClientBuilder};
 use serde::{Deserialize, Serialize};
+use std::time::Duration;
 
 #[derive(Serialize, Deserialize, Debug)]
 struct User {
@@ -47,6 +41,12 @@ async fn main() -> Result<()> {
 // 通过reqwest 实现文件下载功能
 #[tokio::test]
 async fn test_download() -> Result<()> {
+    use std::{
+        fs::{self, File},
+        io::copy,
+        path::Path,
+    };
+
     let tmp_dir = Path::new("../download");
     fs::create_dir_all(tmp_dir)?;
     println!("tmp_dir: {:?}", tmp_dir);
