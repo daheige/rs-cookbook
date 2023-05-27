@@ -67,3 +67,133 @@ rustup update
 
 # 更多的crates
 https://crates.io 可以在这个网站上面进行搜索即可
+
+# rust交叉编译工具cross
+cross compile，通过设置编译时所使用的目标（target），可以实现让Rust在同样的系统环境下编译出不同系统环境的程序。
+然而，要实现系统原生程序的交叉编译不是一件简单的事，因为会受到专利、技术、平台依赖等限制，实际中并不是所有的程序都可以被成功的交叉编译。
+Rust提供多种编译目标，纯粹的Rust代码可以很容易的实现交叉编译，但是如果Rust程序中有用到C/C++函数库，情况就会变得非常复杂。
+我这这里只讨论纯Rust代码的交叉编译。
+
+## cross 安装和使用
+cross是一个Rust交叉编译的项目，其项目地址: https://github.com/cross-rs/cross
+它利用Docker简化了在x86_64的Linux操作系统上进行交叉编译时所需要的前置设置。提供了多种常见的CPU架构和部分操作系统的交叉编译环境，
+除了Rust代码能够交叉编译外，因为包含C/C++编译器，所以C/C++的代码也可以跟着一起进行交叉编译。
+在使用cross工具之前，需要事先安装Docker与Rust开发环境，输入以下指令，可直接使用Cargo来安装cross工具：
+```shell
+cargo install cross
+
+# 测试是否配置成功
+cross --version
+cross 0.2.5
+```
+安装完成后，如果需要进行交叉编译，就可以使用cross build 、cross check、cross run、cross test
+来代替cargo build、cargo check、cargo run、cargo test，在通过传入--target参数来指定要交叉编译成哪个系统环境的程序。
+使用方法：
+```shell
+# 在Linux操作系统上交叉编译出Windows x86_64程序
+cross build --target x86_64-pc-windows-gnu
+
+# 在Linux操作系统上交叉编译出64位的Linux ARM程序
+cross build --target aarch64-unknown-linux-gnu
+
+# Linux X86_64架构
+cross build --target x86_64-unknown-linux-musl
+
+```
+
+# 通过cargo添加musl工具链的方式交叉编译
+
+- 绝大部分的Rust程序员都会有跟我我一样的需求，写代码用的是Windows或者Mac部署平台是Linux，这种情况下就需要使用Cross-Compiler交叉编译
+意思是可以在当前平台Host下编译出目标平台target的可执行文件，尤其是做ARM平台开发的同学对这个更为熟悉。
+
+- Rust交叉编译在Github上有一个文档Rust核心员工Jorge Aparicio提供的一份文档https://github.com/japaric/rust-cross，推荐大家仔细的读一读。
+
+- 对我而言，我的要求比较简单，都是X86_64架构，从Mac上编译出unknow-linux就好
+
+## linux musl工具链
+musl实现了Linux libc，质量可靠，适配所有Linux环境，使用静态连接替换动态链接，这样就能打出一个完整的二进制文件，可以丢到任何Linux环境里运行。当然，关于静态链接与动态链接各有优缺点，这里不细说。
+下面就以Linux X86_64架构 centos操作系统为例子，进行rust交叉编译：
+1. 首先安装一下 `x86_64-unknown-linux-musl`
+    ```shell
+        rustup target add x86_64-unknown-linux-musl
+    ```
+    vim  main.rs
+
+    ``` rust
+        fn main() {
+            println!("Hello, world!");
+        }
+    ```
+2. 添加配置 vim ~/.cargo/config添加图下内容：
+    ```toml
+    [target.x86_64-unknown-linux-musl]
+    linker = "rust-lld"
+    rustflags = ["-C", "linker-flavor=ld.lld"]
+    ```
+
+    ```shell
+    cargo build --release --target=x86_64-unknown-linux-musl
+    ```
+    成功就会输出：Finished release [optimized] target(s) in 0.00s
+
+3. 编译好的结果会放入 `target/x86_64-unknown-linux-musl/release`中
+    把结果丢到Linux下执行，没问题
+    ```
+    $ ./hello
+    Hello, world!
+    ```
+
+# musl交叉编译的常见问题
+
+要是提示
+```shell
+/bin/sh: musl-gcc: command not found
+```
+解决方法是安装musl-cross
+```shell
+brew install filosottile/musl-cross/musl-cross
+```
+配置config
+$ vim .cargo/config
+``` toml
+[target.x86_64-unknown-linux-musl]
+linker = "x86_64-linux-musl-gcc"
+```
+
+要是你的程序依赖原生库，需要设置一个环境变量CC_x86_64_unknown_linux_musl=x86_64-linux-musl-gcc
+所以完整的编译命令如下:
+```shell
+CC_x86_64_unknown_linux_musl="x86_64-linux-musl-gcc" cargo build --release --target=x86_64-unknown-linux-musl
+```
+
+要是你的程序使用了OpenSSL类库，这是一个麻烦的事情，目前普遍做法是在Cargo.toml文件中添加依赖:
+``` toml
+[dependencies]
+openssl = { version = "0.10", features = ["vendored"] }
+```
+
+# Windows静态编译
+1. 需要安装 `x86_64-pc-windows-gnu`
+```shell
+rustup target add x86_64-pc-windows-msvc
+```
+2. 安装musl-cross
+```shell
+brew install filosottile/musl-cross/musl-cross
+```
+如果已经安装过，但提示版本较低，可以通过下面的命令安装
+```shell
+brew reinstall musl-cross
+```
+
+3. 在~/.cargo/config配置文件中加入如下内容
+```toml
+[target.x86_64-pc-windows-msvc]
+rustflags = ["-C", "target-feature=+crt-static"]
+```
+4. 使用下面的命令编译即可
+cargo build --release --target=x86_64-pc-windows-msvc
+
+# rust交叉编译选择
+一般来说推荐使用cross进行交叉编译，避免了各种环境的依赖问题。
+当然也可以使用musl工具链的方式交叉编译
