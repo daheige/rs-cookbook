@@ -76,9 +76,10 @@ Rust提供多种编译目标，纯粹的Rust代码可以很容易的实现交叉
 
 ## cross 安装和使用
 cross是一个Rust交叉编译的项目，其项目地址: https://github.com/cross-rs/cross
-它利用Docker简化了在x86_64的Linux操作系统上进行交叉编译时所需要的前置设置。提供了多种常见的CPU架构和部分操作系统的交叉编译环境，
-除了Rust代码能够交叉编译外，因为包含C/C++编译器，所以C/C++的代码也可以跟着一起进行交叉编译。
-在使用cross工具之前，需要事先安装Docker与Rust开发环境，输入以下指令，可直接使用Cargo来安装cross工具：
+它利用Docker简化了在x86_64的Linux操作系统上进行交叉编译时所需要的前置设置。
+提供了多种常见的CPU架构和部分操作系统的交叉编译环境，除了Rust代码能够交叉编译外，
+因为包含C/C++编译器，所以C/C++的代码也可以跟着一起进行交叉编译。
+在使用cross工具之前，需要事`先安装Docker与Rust开发环境`，输入以下指令，可直接使用Cargo来安装cross工具：
 ```shell
 cargo install cross
 
@@ -86,6 +87,7 @@ cargo install cross
 cross --version
 cross 0.2.5
 ```
+
 安装完成后，如果需要进行交叉编译，就可以使用cross build 、cross check、cross run、cross test
 来代替cargo build、cargo check、cargo run、cargo test，在通过传入--target参数来指定要交叉编译成哪个系统环境的程序。
 使用方法：
@@ -96,9 +98,34 @@ cross build --target x86_64-pc-windows-gnu
 # 在Linux操作系统上交叉编译出64位的Linux ARM程序
 cross build --target aarch64-unknown-linux-gnu
 
-# Linux X86_64架构
+# Linux X86_64架构，无外部依赖，支持centos,ubuntu系统
 cross build --target x86_64-unknown-linux-musl
 
+# Linux x86_64架构，gnu需要glibc
+cross build --target x86_64-unknown-linux-gnu
+
+```
+
+# cross运行
+cross 运行参考手册：https://github.com/cross-rs/cross/wiki/Getting-Started
+
+运行在 `aarch64-unknown-linux-gnu` 上
+```shell
+cross run --target aarch64-unknown-linux-gnu
+info: downloading component 'rust-src'
+info: installing component 'rust-src'
+    Finished dev [unoptimized + debuginfo] target(s) in 2.49s
+     Running `/linux-runner aarch64 /target/aarch64-unknown-linux-gnu/debug/rand-demo`
+Hello, world!
+```
+
+运行在 `x86_64-unknown-linux-gnu` 上，要求运行环境有glibc
+对于`x86_64-unknown-linux-musl` 是无任何外部依赖的linux x86_64架构
+```shell
+% cross run --target x86_64-unknown-linux-gnu
+    Finished dev [unoptimized + debuginfo] target(s) in 2.53s
+     Running `/linux-runner x86_64 /target/x86_64-unknown-linux-gnu/debug/rand-demo`
+Hello, world!
 ```
 
 # 通过cargo添加musl工具链的方式交叉编译
@@ -160,7 +187,7 @@ $ vim .cargo/config
 linker = "x86_64-linux-musl-gcc"
 ```
 
-要是你的程序依赖原生库，需要设置一个环境变量CC_x86_64_unknown_linux_musl=x86_64-linux-musl-gcc
+要是你的程序依赖原生库，需要设置一个环境变量 CC_x86_64_unknown_linux_musl=x86_64-linux-musl-gcc
 所以完整的编译命令如下:
 ```shell
 CC_x86_64_unknown_linux_musl="x86_64-linux-musl-gcc" cargo build --release --target=x86_64-unknown-linux-musl
