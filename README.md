@@ -99,6 +99,8 @@ cross build --target x86_64-pc-windows-gnu
 cross build --target aarch64-unknown-linux-gnu
 
 # Linux X86_64架构，无外部依赖，支持centos,ubuntu系统
+# 在部分mac机器上，编译不成功，可能是缺少 musl 部分组件导致的
+# 当遇到这种情况，可以选择musl工具链: cargo build --target=x86_64-unknown-linux-musl 发布编译
 cross build --target x86_64-unknown-linux-musl
 
 # Linux x86_64架构，gnu需要glibc
@@ -126,6 +128,11 @@ Hello, world!
     Finished dev [unoptimized + debuginfo] target(s) in 2.53s
      Running `/linux-runner x86_64 /target/x86_64-unknown-linux-gnu/debug/rand-demo`
 Hello, world!
+```
+
+对于 `x86_64-unknown-linux-musl` 目前cross 编译运行，在有些mac机器上不可执行，可以通过 cargo musl工具链的方式交叉编译，见下面的 musl 交叉编译。
+```shell
+% cargo build --target=x86_64-unknown-linux-musl
 ```
 
 # 通过cargo添加musl工具链的方式交叉编译
