@@ -133,7 +133,7 @@ Hello, world!
 - 绝大部分的Rust程序员都会有跟我我一样的需求，写代码用的是Windows或者Mac部署平台是Linux，这种情况下就需要使用Cross-Compiler交叉编译
 意思是可以在当前平台Host下编译出目标平台target的可执行文件，尤其是做ARM平台开发的同学对这个更为熟悉。
 
-- Rust交叉编译在Github上有一个文档Rust核心员工Jorge Aparicio提供的一份文档https://github.com/japaric/rust-cross，推荐大家仔细的读一读。
+- Rust交叉编译在Github上有一个文档Rust核心员工Jorge Aparicio提供的一份文档 https://github.com/japaric/rust-cross 推荐大家仔细的读一读。
 
 - 对我而言，我的要求比较简单，都是X86_64架构，从Mac上编译出unknow-linux就好
 
