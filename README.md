@@ -206,8 +206,9 @@ CC_x86_64_unknown_linux_musl="x86_64-linux-musl-gcc" cargo build --release --tar
 openssl = { version = "0.10", features = ["vendored"] }
 ```
 
-# Windows静态编译工具 cargo-xwin
-1. 需要安装`x86_64-pc-windows-msvc`
+# Windows静态编译
+需要安装工具 cargo-xwin
+1. 安装`x86_64-pc-windows-msvc`
 ```shell
 rustup target add x86_64-pc-windows-msvc
 ```
@@ -221,8 +222,34 @@ cargo install cargo-xwin
 [target.x86_64-pc-windows-msvc]
 rustflags = ["-C", "target-feature=+crt-static"]
 ```
+
 4. 使用下面的命令编译即可，它会生成一个xxx.exe文件在target/x86_64-pc-windows-msvc/debug中
+```shell
 cargo xwin build --target x86_64-pc-windows-msvc
+```
 
 # rust交叉编译选择
-一般来说推荐使用cross进行交叉编译，避免了各种环境的依赖问题。当然也可以使用musl工具链的方式交叉编译，两种构建和运行环境，你可以根据实际情况，选择其一即可。
+
+一般来说推荐使用cross进行交叉编译，避免了各种环境的依赖问题。
+当然也可以使用musl工具链的方式交叉编译，两种构建和运行环境，你可以根据实际情况，选择其一即可。
+
+在linux x86_64 架构上建议使用 `x86_64-unknown-linux-musl` 类型进行编译，这样的话，部署就无任何依赖；
+```shell
+cargo build --target=x86_64-unknown-linux-musl
+```
+
+如果你的系统有glibc库，也可以使用 `x86_64-unknown-linux-gnu` 类型编译，然后部署。
+```shell
+cross build --target x86_64-unknown-linux-gnu
+```
+
+对于 window 平台，建议使用 cargo-xwin 或者 cross 编译
+cargo xwin编译：
+```shell
+cargo xwin build --target x86_64-pc-windows-msvc
+    Finished dev [unoptimized + debuginfo] target(s) in 0.33s
+```
+cross编译
+```shell
+cross build --target x86_64-pc-windows-gnu
+```
