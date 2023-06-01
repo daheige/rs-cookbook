@@ -190,7 +190,8 @@ brew install filosottile/musl-cross/musl-cross
 $ vim .cargo/config
 ``` toml
 [target.x86_64-unknown-linux-musl]
-linker = "x86_64-linux-musl-gcc"
+linker = "rust-lld"
+rustflags = ["-C", "linker-flavor=ld.lld"]
 ```
 
 要是你的程序依赖原生库，需要设置一个环境变量 CC_x86_64_unknown_linux_musl=x86_64-linux-musl-gcc
@@ -205,18 +206,14 @@ CC_x86_64_unknown_linux_musl="x86_64-linux-musl-gcc" cargo build --release --tar
 openssl = { version = "0.10", features = ["vendored"] }
 ```
 
-# Windows静态编译
-1. 需要安装 `x86_64-pc-windows-gnu`
+# Windows静态编译工具 cargo-xwin
+1. 需要安装`x86_64-pc-windows-msvc`
 ```shell
 rustup target add x86_64-pc-windows-msvc
 ```
-2. 安装musl-cross
+2. 安装xwin
 ```shell
-brew install filosottile/musl-cross/musl-cross
-```
-如果已经安装过，但提示版本较低，可以通过下面的命令安装
-```shell
-brew reinstall musl-cross
+cargo install cargo-xwin
 ```
 
 3. 在~/.cargo/config配置文件中加入如下内容
@@ -224,8 +221,8 @@ brew reinstall musl-cross
 [target.x86_64-pc-windows-msvc]
 rustflags = ["-C", "target-feature=+crt-static"]
 ```
-4. 使用下面的命令编译即可
-cargo build --release --target=x86_64-pc-windows-msvc
+4. 使用下面的命令编译即可，它会生成一个xxx.exe文件在target/x86_64-pc-windows-msvc/debug中
+cargo xwin build --target x86_64-pc-windows-msvc
 
 # rust交叉编译选择
 一般来说推荐使用cross进行交叉编译，避免了各种环境的依赖问题。当然也可以使用musl工具链的方式交叉编译，两种构建和运行环境，你可以根据实际情况，选择其一即可。
