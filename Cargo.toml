@@ -1,6 +1,7 @@
 [workspace]
 resolver = "2"
 members = [
+    "hello",
     "rand-demo",
     "vec-sort",
     "clap-cmd",
