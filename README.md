@@ -111,7 +111,7 @@ cross build --target x86_64-unknown-linux-gnu
 # cross运行
 cross 运行参考手册：https://github.com/cross-rs/cross/wiki/Getting-Started
 
-运行在 `aarch64-unknown-linux-gnu` 上
+- 运行在 `aarch64-unknown-linux-gnu` 上
 ```shell
 cross run --target aarch64-unknown-linux-gnu
 info: downloading component 'rust-src'
@@ -121,7 +121,7 @@ info: installing component 'rust-src'
 Hello, world!
 ```
 
-运行在 `x86_64-unknown-linux-gnu` 上，要求运行环境有glibc
+- 运行在 `x86_64-unknown-linux-gnu` 上，要求运行环境有glibc
 对于`x86_64-unknown-linux-musl` 是无任何外部依赖的linux x86_64架构
 ```shell
 % cross run --target x86_64-unknown-linux-gnu
@@ -130,7 +130,7 @@ Hello, world!
 Hello, world!
 ```
 
-对于 `x86_64-unknown-linux-musl` 目前cross 编译运行，在有些mac机器上不可执行，可以通过 cargo musl工具链的方式交叉编译，见下面的 musl 交叉编译。
+- 对于 `x86_64-unknown-linux-musl` 目前cross 编译运行，在有些mac机器上不可执行，可以通过 cargo musl工具链的方式交叉编译，见下面的 musl 交叉编译。
 ```shell
 % cargo build --target=x86_64-unknown-linux-musl
 ```
@@ -233,23 +233,24 @@ cargo xwin build --target x86_64-pc-windows-msvc
 一般来说推荐使用cross进行交叉编译，避免了各种环境的依赖问题。
 当然也可以使用musl工具链的方式交叉编译，两种构建和运行环境，你可以根据实际情况，选择其一即可。
 
-在linux x86_64 架构上建议使用 `x86_64-unknown-linux-musl` 类型进行编译，这样的话，部署就无任何依赖；
+- 在linux x86_64 架构上建议使用 `x86_64-unknown-linux-musl` 类型进行编译，这样的话，部署就无任何依赖；
 ```shell
 cargo build --target=x86_64-unknown-linux-musl
 ```
 
-如果你的系统有glibc库，也可以使用 `x86_64-unknown-linux-gnu` 类型编译，然后部署。
+- 如果你的linux系统有glibc库，也可以使用 `x86_64-unknown-linux-gnu` 类型编译，然后部署。
 ```shell
 cross build --target x86_64-unknown-linux-gnu
 ```
 
-对于 window 平台，建议使用 cargo-xwin 或者 cross 编译
-cargo xwin编译：
-```shell
-cargo xwin build --target x86_64-pc-windows-msvc
-    Finished dev [unoptimized + debuginfo] target(s) in 0.33s
-```
-cross编译
-```shell
-cross build --target x86_64-pc-windows-gnu
-```
+- 对于 window 平台，建议使用 cargo-xwin 或者 cross 编译
+
+    - cargo xwin编译：
+    ```shell
+    cargo xwin build --target x86_64-pc-windows-msvc
+        Finished dev [unoptimized + debuginfo] target(s) in 0.33s
+    ```
+    - cross编译
+    ```shell
+    cross build --target x86_64-pc-windows-gnu
+    ```
