@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 
 // Attribute macro used to apply derive macros
 // user能序列化和反序列化derive定义
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize)]
 struct User {
     id: i64,
     name: String,

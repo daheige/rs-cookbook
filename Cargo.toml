@@ -29,5 +29,7 @@ members = [
     "clourse-demo",
     "impl-trait",
     "trait-object",
-    "guess_game"
+    "guess_game",
+    "vec-iter",
+    "map-demo"
 ]
