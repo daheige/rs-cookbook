@@ -5,7 +5,7 @@ fn main() {
     nums.push(3);
 
     // 对集合元素进行遍历
-    // 1. iter() 引用的方式遍历
+    // 1.通过借用的方式遍历
     // 此时val是一个不可变引用类型
     for val in &nums {
         println!("current num:{}", val);
