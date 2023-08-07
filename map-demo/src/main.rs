@@ -48,4 +48,15 @@ fn main() {
     }
 
     println!("{:?}", m);
+
+    // 统计单词出现的次数
+    let s = "hello abc world eee abc rust world";
+    let mut m = HashMap::new(); // m是一个可变引用hash map
+    for word in s.split_whitespace() {
+        // 按照空格进行分割为一个切片类型
+        let num = m.entry(word).or_insert(0);
+        *num += 1;
+    }
+
+    println!("m:{:?}", m);
 }
