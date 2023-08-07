@@ -41,7 +41,8 @@ fn main() {
 
     // 上面的例子简写模式
     for record in &records {
-        // entry方法是获取map的元素，接着调用or_insert表示不存在就插入一个元素
+        // entry方法是获取map的元素，返回map元素的可变引用
+        // 接着调用or_insert表示不存在就插入一个元素
         // 当这两个方法执行完毕后，返回一个可变引用类型 &mut Vec<i32>
         let nums = m.entry(&record.key).or_insert(vec![]);
         nums.push(record.num);
