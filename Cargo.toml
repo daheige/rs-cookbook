@@ -31,5 +31,6 @@ members = [
     "trait-object",
     "guess_game",
     "vec-iter",
-    "map-demo"
+    "map-demo",
+    "file-read"
 ]
