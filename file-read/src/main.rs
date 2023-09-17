@@ -15,6 +15,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 // cargo test file_read -- --show-output
 // 测试某个函数，并输出执行结果
+//
+// 这个问号 ? 是 Rust 中的错误处理操作符。
+// 它用于处理 Result 类型的返回值。
+// 如果 Result 是一个 Ok，则 ? 不会执行任何操作，它会将成功的值提取出来。
+// 如果 Result 是一个 Err，则 ? 会立即将错误返回给调用者，作为整个函数的返回值，
+// 就好像使用 return Err(...) 一样
 #[test]
 fn file_read() -> Result<(), Box<dyn std::error::Error>> {
     // ?错误简写模式，遇到错误就返回，不再执行下面的程序
