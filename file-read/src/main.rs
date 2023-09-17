@@ -1,3 +1,4 @@
+use anyhow::{Context, Result as aResult};
 use std::fs;
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("Hello, world!");
@@ -49,5 +50,25 @@ fn file_read_custom() -> Result<(), CustomError> {
         .map_err(|err| CustomError(format!("read file err:{}", err)))?;
     println!("read file content:{}", content);
 
+    Ok(())
+}
+
+// 采用anyhow处理错误
+//
+// with_context添加上下文信息，运行结果如下
+// Error: read file:test1.md failed
+//
+// Caused by:
+// No such file or directory (os error 2)
+#[test]
+fn file_read_any() -> aResult<()> {
+    // ?错误简写模式，遇到错误就返回，不再执行下面的程序
+    let path = "test1.md";
+
+    // let content = fs::read_to_string(path)?;
+
+    // 添加上下文信息
+    let content = fs::read_to_string(path).with_context(|| format!("read file:{} failed", path))?;
+    println!("文件内容: {}", content);
     Ok(())
 }
