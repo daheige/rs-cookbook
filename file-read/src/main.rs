@@ -34,6 +34,11 @@ fn file_read_custom() -> Result<(), CustomError> {
     // 调用Result<T,E>类型的map_err方法，参数是op，它是一个闭包FnOnce函数
     // 其返回值是Result<T, F>，这里的F就是闭包返回的F，这个F在下面的代码中
     // 就是我们自定义的错误类型
+    //
+    // map_err 方法接受一个闭包（匿名函数），该闭包接受一个错误对象 err，
+    // 并返回一个新的错误对象。在这个闭包中，它将原始的 std::io::Error
+    // 错误转换为自定义的 CustomError 错误类型，
+    // 并添加了一条包含错误信息的自定义错误消息
     let content = fs::read_to_string("test1.md")
         .map_err(|err| CustomError(format!("read file err:{}", err)))?;
     println!("read file content:{}", content);
