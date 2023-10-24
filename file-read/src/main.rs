@@ -1,7 +1,6 @@
 use anyhow::{Context, Result as aResult};
 use std::fs;
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    println!("Hello, world!");
     // 读取文件内容
     let result = fs::read_to_string("test.md");
     // match模式匹配
