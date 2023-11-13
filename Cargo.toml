@@ -32,5 +32,6 @@ members = [
     "guess_game",
     "vec-iter",
     "map-demo",
-    "file-read"
+    "file-read",
+    "error-handler"
 ]
