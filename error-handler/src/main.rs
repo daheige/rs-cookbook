@@ -6,7 +6,7 @@ use std::{env, fs, io};
 
 // trace
 use tracing::{error, info, Level};
-use tracing_subscriber;
+use tracing_subscriber::{fmt, EnvFilter};
 
 // 自定义宏，传递给anyhow返回的Result<T, E>对应的context方法
 macro_rules! file_line_here {
@@ -87,9 +87,10 @@ fn main() -> Result<()> {
     // f().location(here!())?;
 
     // 初始化trace配置
-    env::set_var("RUST_LOG", "debug"); // 设置日志级别
-    tracing_subscriber::fmt()
-        .with_max_level(Level::TRACE)
+    env::set_var("RUST_LOG", "info"); // 设置日志级别
+    fmt()
+        .with_env_filter(EnvFilter::from_default_env())
+        // .with_max_level(Level::WARN)
         .with_file(true)
         .with_line_number(true)
         .with_writer(io::stdout) // 写入到标准输出
