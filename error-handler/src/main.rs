@@ -5,7 +5,8 @@ use std::panic::Location as sLocation; // 这个一般是用于panic hook使用
 use std::{env, fs, io};
 
 // trace
-use tracing::{error, info, Level};
+// use tracing::{error, info, Level};
+use tracing::{error, info};
 use tracing_subscriber::{fmt, EnvFilter};
 
 // 自定义宏，传递给anyhow返回的Result<T, E>对应的context方法
