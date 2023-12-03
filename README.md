@@ -157,7 +157,7 @@ musl实现了Linux libc，质量可靠，适配所有Linux环境，使用静态�
             println!("Hello, world!");
         }
     ```
-2. 添加配置 vim ~/.cargo/config添加图下内容：
+2. 添加配置 vim ~/.cargo/config添加如下内容：
     ```toml
     [target.x86_64-unknown-linux-musl]
     linker = "rust-lld"
