@@ -21,6 +21,8 @@ rustup update
 - redis-rs 库用于redis操作
 - r2d2连接池管理，用于mysql redis连接池管理
 - kafka-rust/kafka-rust 相比上一个库，它算是纯Rust实现，文档还行，支持Kafka0.8.2及以后的版本，但是对于部分0.9版本的特性还不支持
+- pulsar 用于pulsar消息队列操作
+- kafka 用于rust kafka client操作
 - anyhow用于error handler处理result
 - hyperium/tonic 纯Rust实现的gRPC客户端和服务器端，支持async/await异步调用，用于grpc微服务开发
 - tokio-rs/prost 用来代码生成，tokio出品
