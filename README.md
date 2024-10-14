@@ -137,7 +137,7 @@ Hello, world!
 % cargo build --target=x86_64-unknown-linux-musl
 ```
 
-# 通过cargo添加musl工具链的方式交叉编译
+# 在MacOS上使用musl实现Linux交叉编译
 
 - 绝大部分的Rust程序员都会有跟我一样的需求，写代码用的是Windows或者Mac部署平台是Linux，这种情况下就需要使用cross交叉编译意思是可以在当前平台Host下编译出目标平台target的可执行文件，尤其是做ARM平台开发的同学对这个更为熟悉。
 
@@ -145,9 +145,8 @@ Hello, world!
 
 - 对我而言，我的要求比较简单，都是X86_64架构，从Mac上编译出unknow-linux就好(大部分服务器主要是centos/ubuntu操作系统为主)
 
-## linux musl工具链
 musl实现了Linux libc，质量可靠，适配所有Linux环境，使用静态连接替换动态链接，这样就能打出一个完整的二进制文件，可以丢到任何Linux环境里运行。当然，关于静态链接与动态链接各有优缺点，这里不细说。
-下面就以Linux X86_64架构 centos操作系统为例子，进行rust交叉编译：
+下面就以MacOS操作系统为例子，实现Linux交叉编译：
 1. 首先安装一下 `x86_64-unknown-linux-musl`
     ```shell
         rustup target add x86_64-unknown-linux-musl
@@ -178,7 +177,7 @@ musl实现了Linux libc，质量可靠，适配所有Linux环境，使用静态�
     Hello, world!
     ```
 
-# musl交叉编译的常见问题
+# 在MacOS上使用musl交叉编译的常见问题
 
 要是提示
 ```shell
@@ -208,7 +207,7 @@ CC_x86_64_unknown_linux_musl="x86_64-linux-musl-gcc" cargo build --release --tar
 openssl = { version = "0.10", features = ["vendored"] }
 ```
 
-# Windows静态编译
+# 在Linux或MacOS上实现Windows交叉编译
 需要安装工具 cargo-xwin
 1. 安装`x86_64-pc-windows-msvc`
 ```shell
@@ -231,11 +230,8 @@ cargo xwin build --target x86_64-pc-windows-msvc
 ```
 
 # rust交叉编译选择
-
-一般来说推荐使用cross进行交叉编译，避免了各种环境的依赖问题。
-当然也可以使用musl工具链的方式交叉编译，两种构建和运行环境，你可以根据实际情况，选择其一即可。
-
-- 在linux x86_64 架构上建议使用 `x86_64-unknown-linux-musl` 类型进行编译，这样的话，部署就无任何依赖；
+一般来说推荐使用cross进行交叉编译，避免了各种环境的依赖问题。下面是不同平台交叉编译的选择：
+- 对于linux x86_64 架构，建议使用 `x86_64-unknown-linux-musl` 类型进行编译，这样的话，部署就无任何依赖；
 ```shell
 cargo build --target=x86_64-unknown-linux-musl
 ```
