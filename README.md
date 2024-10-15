@@ -94,10 +94,10 @@ cross 0.2.5
 来代替cargo build、cargo check、cargo run、cargo test，在通过传入--target参数来指定要交叉编译成哪个系统环境的程序。
 使用方法：
 ```shell
-# 在Linux操作系统上交叉编译出Windows x86_64程序
+# 在构建平台上交叉编译出Windows x86_64程序
 cross build --target x86_64-pc-windows-gnu
 
-# 在Linux操作系统上交叉编译出64位的Linux ARM程序
+# 在构建平台上交叉编译出64位的Linux ARM程序
 cross build --target aarch64-unknown-linux-gnu
 
 # Linux X86_64架构，无外部依赖，支持centos,ubuntu系统
@@ -105,7 +105,7 @@ cross build --target aarch64-unknown-linux-gnu
 # 当遇到这种情况，可以选择musl工具链: cargo build --target=x86_64-unknown-linux-musl 发布编译
 cross build --target x86_64-unknown-linux-musl
 
-# Linux x86_64架构，gnu需要glibc
+# 在构建平台上交叉编译Linux x86_64程序，gnu需要glibc
 cross build --target x86_64-unknown-linux-gnu
 
 ```
