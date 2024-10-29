@@ -143,10 +143,10 @@ Hello, world!
 
 - Rust交叉编译在Github上有一个文档Rust核心员工Jorge Aparicio提供的一份文档 https://github.com/japaric/rust-cross 推荐大家仔细的读一读。
 
-- 对我而言，我的要求比较简单，都是X86_64架构，从Mac上编译出unknow-linux就好(大部分服务器主要是centos/ubuntu操作系统为主)
+- 对我而言，我的要求比较简单，都是X86_64架构，从Mac上编译出unknow-linux就好(因为大部分服务器主要是centos/ubuntu操作系统为主)
 
-musl实现了Linux libc，质量可靠，适配所有Linux环境，使用静态连接替换动态链接，这样就能打出一个完整的二进制文件，可以丢到任何Linux环境里运行。当然，关于静态链接与动态链接各有优缺点，这里不细说。
-下面就以MacOS操作系统为例子，实现Linux交叉编译：
+musl实现了Linux libc，质量可靠，适配所有Linux环境，使用静态链接替换动态链接，这样就能交叉编译一个完整的二进制文件，可以丢到任何Linux环境里运行。当然，关于静态链接与动态链接各有优缺点，这里不细说。
+下面就以MacOS操作系统为例，实现Linux交叉编译：
 1. 首先安装一下 `x86_64-unknown-linux-musl`
     ```shell
         rustup target add x86_64-unknown-linux-musl
