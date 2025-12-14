@@ -5,4 +5,8 @@
 
 int32_t add(int32_t left, int32_t right);
 
-void call_from_c(void);
+void call_from_rust(void);
+
+void hello(const char *c_str);
+
+void say_hello(void);

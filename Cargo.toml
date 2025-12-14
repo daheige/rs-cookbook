@@ -36,5 +36,6 @@ members = [
     "error-handler",
     "super-features",
     "c-ffi",
-    "rust-interop"
+    "rust-interop",
+    "rs-lib"
 ]

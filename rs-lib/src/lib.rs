@@ -1,5 +1,3 @@
-use std::ffi::{c_char, CStr};
-
 // 对外提供add函数供c语言调用
 #[unsafe(no_mangle)]
 pub extern "C" fn add(left: i32, right: i32) -> i32 {
@@ -8,16 +6,7 @@ pub extern "C" fn add(left: i32, right: i32) -> i32 {
 
 #[unsafe(no_mangle)]
 pub extern "C" fn call_from_rust() {
-    println!("called call_from_rust function");
-}
-
-#[unsafe(no_mangle)]
-pub extern "C" fn hello(c_str:*const c_char) {
-    println!("called hello function");
-    // 使用CStr::from_ptr确保C字符串安全转换
-    let c_string = unsafe { CStr::from_ptr(c_str) };
-    let name = c_string.to_string_lossy().into_owned();
-    println!("hello,{}", name);
+    println!("called call_from_rust!");
 }
 
 // 关闭混淆功能以让c程序可以找到调用的函数

@@ -1691,6 +1691,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "rs-lib"
+version = "0.1.0"
+
+[[package]]
 name = "rust-interop"
 version = "0.1.0"
 dependencies = [

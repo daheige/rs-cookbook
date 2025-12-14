@@ -1,6 +1,7 @@
 use std::env;
 
 fn main() {
+    // 当前项目的根目录路径
     let crate_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
 
     // 生成C头文件

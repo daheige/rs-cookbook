@@ -1,12 +1,11 @@
 [package]
-name = "rust-interop"
+name = "rs-lib"
 version = "0.1.0"
 edition = "2024"
 
 [lib]
-name = "rust_interop" # 链接库名字
+name = "rslib" # 链接库名字
 #配置 Rust 生成两种库——静态库（staticlib）和 C动态库（cdylib）
 crate-type = ["staticlib", "cdylib"]
 
-[build-dependencies]
-cbindgen = "0.29.2"
+[dependencies]
