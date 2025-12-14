@@ -33,5 +33,8 @@ members = [
     "vec-iter",
     "map-demo",
     "file-read",
-    "error-handler"
+    "error-handler",
+    "super-features",
+    "c-ffi",
+    "rust-interop"
 ]

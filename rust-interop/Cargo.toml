@@ -1,0 +1,10 @@
+[package]
+name = "rust-interop"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = ["cdylib"]  # 动态库
+
+[build-dependencies]
+cbindgen = "0.29.2"
