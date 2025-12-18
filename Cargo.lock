@@ -844,6 +844,14 @@ name = "hello"
 version = "0.1.0"
 
 [[package]]
+name = "hello_derive"
+version = "0.1.0"
+dependencies = [
+ "quote",
+ "syn 1.0.104",
+]
+
+[[package]]
 name = "hermit-abi"
 version = "0.1.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"

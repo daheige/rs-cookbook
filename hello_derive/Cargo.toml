@@ -1,0 +1,15 @@
+[package]
+name = "hello_derive"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+proc-macro = true
+
+[[bin]]
+name = "hello-demo"
+path = "src/hello.rs"
+
+[dependencies]
+syn = { version = "1.0", features = ["full"] }
+quote = "1.0"

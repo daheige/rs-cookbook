@@ -37,5 +37,6 @@ members = [
     "super-features",
     "c-ffi",
     "rust-interop",
-    "rs-lib"
+    "rs-lib",
+    "hello_derive"
 ]
