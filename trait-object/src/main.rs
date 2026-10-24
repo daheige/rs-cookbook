@@ -44,6 +44,7 @@ fn display_me(item: impl Display) {
     println!("{}", item);
 }
 
+// 将特征区间的 impl 特征语法用做函数的返回类型
 fn lazy_add(a: i32, b: i32) -> impl Fn() -> i32 {
     move || a + b
 }

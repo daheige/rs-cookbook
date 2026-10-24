@@ -11,7 +11,7 @@ fn main() {
 }
 
 // 执行图片旋转
-// ../target/debug/imgtool ~/Documents/img-test.jpg
+// ../target/debug/imgtool ./img-test.jpg
 
 #[test]
 fn img_rotate90() {

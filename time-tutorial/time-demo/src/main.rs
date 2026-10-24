@@ -35,7 +35,7 @@ fn main() {
     // 结构体方法将其转换为 UTC 标准格式。最后，使用 offset::FixedOffset 结构体，
     // 可以将 UTC 时间转换为 UTC+8 和 UTC-2。
     let local_time = Local::now();
-    let utc_time = DateTime::<Utc>::from_utc(local_time.naive_utc(), Utc);
+    let utc_time: DateTime<Utc> = DateTime::from_naive_utc_and_offset(local_time.naive_utc(), Utc);
     let china_timezone = FixedOffset::east_opt(8 * 3600).unwrap();
     let rio_timezone = FixedOffset::west_opt(2 * 3600).unwrap();
     println!("local time:{:?}", local_time);

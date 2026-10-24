@@ -1,8 +1,7 @@
 use std::fs::File;
-use std::io::{BufRead, BufReader, Error, Write};
+use std::io::{BufRead, BufReader, Write};
 
 use anyhow::Result; // 返回Result<T,E>
-use std::{env, fs};
 fn main() -> Result<()> {
     // 写入文件使用了Write trait
     let path = "test.md";
@@ -22,6 +21,8 @@ fn main() -> Result<()> {
 
 #[test]
 fn latest_updated_file() -> Result<()> {
+    use std::{env, fs};
+
     let current_dir = env::current_dir()?;
     println!("current dir:{:?}", current_dir);
 

@@ -3,9 +3,11 @@ rust cookbook practical code
 - https://www.rustwiki.org.cn/zh-CN/rust-cookbook/intro.html
 - https://rust-lang-nursery.github.io/rust-cookbook/
 
-rust version >= 1.58.0
-I am currently using version 1.68.1
-If you're using version 1.68.0, which has some bugs with log crates, it's advisable to upgrade to a later version, such as v1.68.1
+## rust version
+rust version >= 1.85.0
+
+本项目中所有的 rust 代码，都经过了rust edition 2021 or 2024 的运行和测试。如您想使用本项目中的代码，请务必标明代码出自 `daheige/rs-cookbook` 仓库。
+
 # rust version update
 rustup update
 

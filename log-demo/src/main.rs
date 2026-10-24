@@ -7,7 +7,11 @@ use std::io::Write;
 fn main() {
     // 日志level 优先级  error > warn > info > debug > trace
     // 设置日志级别环境变量
-    env::set_var("RUST_LOG", "debug");
+    // 对于 edition 2024 需要unsafe块来设置环境变量
+    unsafe {
+        env::set_var("RUST_LOG", "debug");
+    }
+
     // env_logger::init(); // 初始化
 
     // 自定义的方式初始化

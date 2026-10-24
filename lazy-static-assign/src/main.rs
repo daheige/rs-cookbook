@@ -5,7 +5,7 @@ use std::sync::Mutex;
 
 lazy_static! {
     // 生命一个static 静态可变变量
-    // mutex保护变量，可跨多个线程处理
+    // mutex保护变量，互斥锁
     static ref FRUIT:Mutex<Vec<String>> = Mutex::new(Vec::new());
 }
 

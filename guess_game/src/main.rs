@@ -1,10 +1,11 @@
 use colored::*; // 用于颜色输出
-use rand::Rng;
+use rand::RngExt;
 use std::cmp::Ordering;
 use std::io::stdin;
 
 fn main() {
-    let rnd: i32 = rand::thread_rng().gen_range(1..10);
+    let mut rng = rand::rng();
+    let rnd: i32 = rng.random_range(1..10); // 生成一个1到10之间的随机数
     loop {
         println!("请输入一个数字:");
         let mut guess_number = String::new();

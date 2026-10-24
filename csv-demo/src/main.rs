@@ -25,11 +25,12 @@ fn main() -> Result<(), Error> {
     for row in reader.records() {
         let record = row?;
         // println!("{:?}",record);
-        println!("in {},{} built the {} model.it is a {}.",
-                 &record[0].trim(),
-                 &record[1],
-                 &record[2],
-                 &record[3],
+        println!(
+            "in {},{} built the {} model.it is a {}.",
+            &record[0].trim(),
+            &record[1],
+            &record[2],
+            &record[3],
         );
     }
 
@@ -57,14 +58,16 @@ fn main() -> Result<(), Error> {
     所以在完成时总是显式刷新 flush
      */
     let mut wrt = csv::Writer::from_writer(io::stdout());
-    wrt.write_record(&["name", "place", "id"]);
+    let _ = wrt.write_record(&["name", "place", "id"]);
     wrt.serialize(("mark", "sydney", 87))?;
     wrt.serialize(("alex", "dublin", 132))?;
     wrt.serialize(("ak", "delhi", 11))?;
 
     // 使用 serde crate 将自定义结构体序列化为 CSV 记录
-    let rec1 = LocationEntry{
-        name:"mark2",place:"mel",id:121,
+    let rec1 = LocationEntry {
+        name: "mark2",
+        place: "mel",
+        id: 121,
     };
     wrt.serialize(rec1)?;
     wrt.flush()?;

@@ -9,4 +9,4 @@ name = "rust_interop" # 链接库名字
 crate-type = ["staticlib", "cdylib"]
 
 [build-dependencies]
-cbindgen = "0.29.2"
+cbindgen = "0.29.4"

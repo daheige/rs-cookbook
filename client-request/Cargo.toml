@@ -7,8 +7,8 @@ edition = "2021"
 
 [dependencies]
 # "blocking" 表示使用reqwest block client功能
-reqwest = { version = "0.11.14",features =["json","blocking"]}
+reqwest = { version = "0.13.5",features =["json","blocking"]}
 # 用于Result<T,E>处理，当发生错误的时候就是终止继续运行，否则T就是正常的结果
-anyhow = "1.0.69"
+anyhow = "1.0.104"
 # 用于异步操作
-tokio = { version = "1", features = ["full"] }
+tokio = { version = "1.54.1", features = ["full"] }

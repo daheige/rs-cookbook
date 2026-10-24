@@ -1,6 +1,5 @@
 use anyhow::Result;
-use reqwest::{self, ClientBuilder};
-use std::{io::Read, time::Duration};
+use std::io::Read;
 
 fn main() -> Result<()> {
     println!("client request demo...");

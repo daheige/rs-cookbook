@@ -1,6 +1,6 @@
 use data_encoding::HEXUPPER;
 use ring::digest::{Context, Digest, SHA256};
-use std::fs::{write, File};
+use std::fs::File;
 use std::io::{BufReader, Error, Read, Write};
 
 // hmac check
@@ -10,8 +10,8 @@ use ring::{hmac, rand};
 
 fn main() {
     println!("Hello, world!");
-    write_and_read_sha256();
-    check_hmac();
+    let _ = write_and_read_sha256();
+    let _ = check_hmac();
 }
 
 // 计算文件的hash值
