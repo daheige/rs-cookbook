@@ -87,9 +87,44 @@ fn greet() {
     // 下面再次使用c就无法使用，编译时不通过
     // let res = c("abc".to_string()); //   ^ value used here after move
     // println!("res:{:?}", res);
+    // print!("c:{:?}", c("abc".to_string())); //  - name value moved here
 
+    // 下面的闭包c就不是FnOnce
+    // 它的返回值c是一个impl Fn(String)
+    // println! 不会消耗 user，只是借用它进行格式化，因此这个闭包实现了 Fn，可以多次调用
+    // 另外，user 的类型是 &str，本身还是 Copy 类型；greeting:
+    // String 只是每次调用时传入的新参数，与闭包能否重复调用无关。
+    let user = "abc"; // 这里的user是一个Copy类型的变量，闭包c不会消耗它，字面量字符串
+    let c = move |greeting: String| {
+        println!("greeting: {} name:{}", greeting, user);
+    };
+
+    c("go".to_string());
+    c("java".to_string());
+
+    // 即使把 user 改成 String，只要闭包内仍然只是读取它，也依然可以多次调用：
+    let user = String::from("abc");
+    let c = move |greeting: String| {
+        println!("greeting: {} name:{}", greeting, user);
+    };
+
+    c("go".to_string());
+    c("java".to_string());
+
+    // 下面这种情况才会变成只能调用一次的 FnOnce
+    let user = String::from("abc");
+    let c = move |greeting: String| {
+        println!("greeting: {} name:{}", greeting, user);
+        // 下面的语句会消耗user，闭包c就变成了 FnOnce 了
+        let s = user;
+        println!("s:{}", s);
+    };
+
+    c("go".to_string());
+    // c("java".to_string()); //  - value moved into closure
 }
 ```
+
 下面的闭包c就不是FnOnce
 ```rust
 let user = "abc";
@@ -105,6 +140,28 @@ res:("abc", "hello")
 greeting: go name:abc
 greeting: java name:abc
 
+所有权被转移到闭包内部
+```rust
+let user = String::from("abc");
+
+let c = move || user; // 将捕获的 user 移出闭包
+
+let s = c();
+// let s2 = c(); // 编译错误
+```
+或者
+```rust
+let user = String::from("abc");
+
+let c = move || {
+    drop(user); // user 被移动并消耗了
+};
+
+c();
+// c(); // 编译错误：闭包已经被消耗
+```
+关键点：move 决定闭包如何捕获变量，闭包内部对变量的操作决定它能被调用多少次。
+
 ## FnMut trait特征
 定义如下：
 ```rust
@@ -118,7 +175,8 @@ pub trait FnMut<Args: Tuple>: FnOnce<Args> {
 - FnMut实际上来说，是可变闭包，也就是说可以读写操作的闭包
 - Output是FnMut返回类型，是一个关联类型
 - call_mut参数是&mut self，它是可变引用，不转移所有权self,可以多次调用
-- 想要在FnMut闭包内修改捕获的变量，外部变量必须要使用mut修饰变量是可变变量
+- 想要在FnMut闭包内修改捕获的变量，外部变量必须要使用mut修饰变量，显式标记这个变量是一个可变类型的变量
+
 ```rust
 // 声明的时候是需要采用mut定义变量为可变类型
 let mut name = String::from("hello");
@@ -182,22 +240,31 @@ pub trait Fn<Args: Tuple>: FnMut<Args> {
 - call参数是&self，它是不可变引用，不转移所有权self
 - fn和Fn trait不是一回事，fn是一个函数指针，不是闭包类型
 ```rust
-// c是一个FnMut特征
-fn call_twice<F>(mut c: F)
-where
-    F: FnMut(),
-{
-    c();
+
+fn call_fn(c: impl Fn()) {
     c();
 }
 
-let mut n = "abc".to_string();
-let c3 = || {
-    n.push_str(",rust");
-    println!("name1:{}", n);
-};
-call_twice(c3);
-println!("n:{}", n);
+fn say_hello() {
+    println!("hello,world");
+}
+
+#[test]
+fn test_clourse() {
+    fn_mut_call();
+
+    // Fn 是没有调用次数限制的闭包和函数，是所有 fn 函数中最高的一种
+    // 基本的函数定义，它是实现了 Fn trait 的闭包类型，Fn trait 是所有闭包中最强的一个，
+    // 它可以被多次调用
+    let c = || {
+        println!("hello");
+    };
+    call_fn(c);
+    call_fn(c);
+    // 普通函数定义，函数指针也可以作为参数，
+    // 此时这里的say_hello函数就是一个实现了Fn trait的闭包类型
+    call_fn(say_hello);
+}
 ```
 
 # 闭包使用场景：
@@ -208,9 +275,10 @@ println!("n:{}", n);
 # rust闭包小结
 - Fn 是没有调用次数限制的闭包和函数，是所有 fn 函数中最高的一种
 - FnMut 是如果闭包本身声明为 mut 也可以多次调用的闭包，它是可以读写的闭包
-- FnOnce 是如果调用者拥有闭包则只能调用一次的闭包
+- FnOnce 是如果调用者拥有闭包（捕获了变量的所有权或所有权发生了转移）则只能调用一次的闭包
 - 每个 Fn 都满足 FnMut 的要求，每个 FnMut 都满足 FnOnce 的要求
 - Fn() 是 FnMut() 的子特型，而 FnMut() 又是 FnOnce() 的子特型。于是 Fn 就成了最专一且最强大的类别。FnMut 和 FnOnce则是包含使用限制的更广泛的类别
+
 ![](rs-clourse.jpg)
 
 # 闭包的性能
@@ -218,5 +286,5 @@ println!("n:{}", n);
 - 闭包在创建的时候，会隐式创建自己的类型，每个闭包都是一个新的类型（trait特征）
 - 不需要额外的函数指针fn来运行闭包，效率和函数几乎一样
 - Rust 闭包的设计保证它非常快，比函数指针还要快，快到完全可以用在强度和性能要求极高的环境下。如果你熟悉 C++ 的 lambda 表达式，就会发现 Rust 闭包跟它一样快且简洁，但更安全
-- 跟其他语言不一样的地方，在大多数语言中，闭包是分配在堆上，动态分派，然后由垃圾回收程序负责回收的。因此创建、调用和回收它们都会多花那么一点点 CPU时间。更麻烦的是，编译器很难对闭包应用行内化优化策略以减少函数调用并进而应用其他优化。总之，这些语言中的闭包可以慢到需要你考虑把它们从紧凑的内部循环（tight inner loop）中移出来
-- rust  闭包完全没有这些性能上的缺点。Rust 就没有垃圾回收。与Rust 中的其他特性一样，闭包不会被分配到堆上，除非你把它们装到Box、Vec 或其他容器里。而且因为每个闭包都有一个不同的类型，所以 Rust 编译器只要知道了你所调用闭包的类型，就可以将该闭包的代码行内化
+- 跟其他语言不一样的地方，在大多数语言中，闭包是分配在堆上，动态分派，然后由垃圾回收器负责回收不需要再使用的变量。因此创建、调用和回收它们都会多花那么一点点 CPU时间。更麻烦的是，编译器很难对闭包进行行内化优化策略，以减少函数调用以及其他优化。总之，这些语言中的闭包可以慢到需要你考虑把它们从紧凑的内部循环（tight inner loop）中移出来
+- rust  闭包完全没有这些性能上的缺点。Rust 就没有垃圾回收机制。与Rust 中的其他特性一样，闭包不会被分配到堆上，除非你把它们装到Box、Vec 或其他容器里。而且因为每个闭包都有一个不同的类型，所以 Rust 编译器只要知道了你所调用闭包的类型，就可以将该闭包的代码行内化
