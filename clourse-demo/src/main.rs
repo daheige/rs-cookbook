@@ -16,7 +16,6 @@ fn main() {
     let handler = thread::spawn(move || {
         println!("s moved to clourse,s = {:?}", s);
     });
-
     handler.join().unwrap(); // 等待线程执行完毕
 
     // 对于非基本类型的情况下，move将所有权移动到闭包中，后续该变量就无法使用了
@@ -58,7 +57,14 @@ fn greet() {
     // println! 不会消耗 user，只是借用它进行格式化，因此这个闭包实现了 Fn，可以多次调用
     // 另外，user 的类型是 &str，本身还是 Copy 类型；greeting:
     // String 只是每次调用时传入的新参数，与闭包能否重复调用无关。
-    let user = "abc"; // 这里的user是一个Copy类型的变量，闭包c不会消耗它，字面量字符串
+    //
+    // 这里的user是一个具有static生命周期的字面量字符串变量，
+    // user 的类型是 &'static str，它指向的字符串字面量具有 'static 生命周期，
+    // 在整个程序运行期间都有效。
+    // move 捕获 user 时会复制这个引用；闭包内只读取 user，不会消耗它，
+    // 因此闭包 c 实现了 Fn，可以多次调用。
+    // 闭包能多次调用，主要是因为它没有消耗捕获的变量。
+    let user = "abc";
     let c = move |greeting: String| {
         println!("greeting: {} name:{}", greeting, user);
     };

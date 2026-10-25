@@ -75,6 +75,7 @@ pub trait FnOnce<Args: Tuple> {
 - Args 是泛型参数
 - FnOnce被称为once：只能调用一次。如果再次调用的话，编译器就会报变量已经被move了所有权错误。
 ```rust
+// move 决定闭包如何捕获变量，闭包内部对变量的操作决定它能被调用多少次。
 fn greet() {
     let name = "hello".to_string();
     // 下面的闭包接收参数后，返回了greeting,name
@@ -94,7 +95,14 @@ fn greet() {
     // println! 不会消耗 user，只是借用它进行格式化，因此这个闭包实现了 Fn，可以多次调用
     // 另外，user 的类型是 &str，本身还是 Copy 类型；greeting:
     // String 只是每次调用时传入的新参数，与闭包能否重复调用无关。
-    let user = "abc"; // 这里的user是一个Copy类型的变量，闭包c不会消耗它，字面量字符串
+    //
+    // 这里的user是一个具有static生命周期的字面量字符串变量，
+    // user 的类型是 &'static str，它指向的字符串字面量具有 'static 生命周期，
+    // 在整个程序运行期间都有效。
+    // move 捕获 user 时会复制这个引用；闭包内只读取 user，不会消耗它，
+    // 因此闭包 c 实现了 Fn，可以多次调用。
+    let user = "abc";
+
     let c = move |greeting: String| {
         println!("greeting: {} name:{}", greeting, user);
     };
